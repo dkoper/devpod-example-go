@@ -10,15 +10,15 @@ import (
 var port *string
 
 func init() {
-	port = flag.String("port", "4000", "port to serve on")
+	port = flag.String("port", "80", "port to serve on")
 }
 
 func main() {
 	flag.Parse()
 	handler := http.FileServer(http.Dir("./static"))
 
-	addr := net.JoinHostPort("127.0.0.1", *port)
+	addr := net.JoinHostPort("0.0.0.0", *port)
 	log.Printf("Serving on %s\n", addr)
 
-	http.ListenAndServe(addr, handler)
+	log.Fatal(http.ListenAndServe(addr, handler))
 }
